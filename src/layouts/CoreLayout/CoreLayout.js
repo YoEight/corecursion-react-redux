@@ -1,7 +1,6 @@
 import React from 'react'
 import Header from '../../components/Header'
 import Nav from '../../components/Nav'
-import './CoreLayout.scss'
 import '../../styles/screen.scss'
 import '../../styles/bootstrap.scss'
 import '../../styles/clean-blog.scss'

@@ -1,4 +1,5 @@
 export const POSTS_LOADED = 'POSTS_LOADED'
+export const POSTS_LOADING_FAILED = 'POSTS_LOADING_FAILED'
 
 export const loadPosts = () => {
   return (dispatch, getState) => {
@@ -7,7 +8,12 @@ export const loadPosts = () => {
       .then((posts) => {
         dispatch({
           type: POSTS_LOADED,
-          posts: posts.reverse()
+          posts: posts.reverse().map((p) => ({ name: p.name }))
+        })
+      })
+      .catch(() => {
+        dispatch({
+          type: POSTS_LOADING_FAILED
         })
       })
   }
@@ -18,16 +24,16 @@ export const actions = {
 }
 
 const ACTION_HANDLERS = {
-  [POSTS_LOADED] : (state, action) => {
-    return {
-      ...state,
-      posts: action.posts
-    }
-  }
+  [POSTS_LOADED] : (state, action) => ({
+    posts: action.posts
+  }),
+  [POSTS_LOADING_FAILED] : (state, action) => ({
+    loadingFailed: true
+  })
 }
 
 const initialState = {
-  posts: []
+  notLoaded: true
 }
 
 export default function homeReducer (state = initialState, action) {

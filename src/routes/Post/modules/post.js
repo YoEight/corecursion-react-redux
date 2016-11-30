@@ -1,13 +1,8 @@
 import { Base64 } from 'js-base64'
 import marked from 'marked'
 
-marked.setOptions({
-  highlight: function (code) {
-    return require('highlight.js').highlightAuto(code).value;
-  }
-});
-
 export const POST_LOADED = 'POST_LOADED'
+export const POST_LOADING_FAILED = 'POST_LOADING_FAILED'
 
 export const loadPost = (name) => {
   return (dispatch, getState) => {
@@ -25,6 +20,11 @@ export const loadPost = (name) => {
           }
         })
       })
+      .catch(() => {
+        dispatch({
+          type: POST_LOADING_FAILED
+        })
+      })
   }
 }
 
@@ -33,16 +33,16 @@ export const actions = {
 }
 
 const ACTION_HANDLERS = {
-  [POST_LOADED] : (state, action) => {
-    return {
-      ...state,
-      blogPost: action.post
-    }
-  }
+  [POST_LOADED] : (state, action) => ({
+    blogPost: action.post
+  }),
+  [POST_LOADING_FAILED] : (state, action) => ({
+    loadingFailed: true
+  })
 }
 
 const initialState = {
-  blogPost: {}
+  notLoaded: true
 }
 
 export default function postReducer (state = initialState, action) {
