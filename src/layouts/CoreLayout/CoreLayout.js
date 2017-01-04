@@ -37,7 +37,7 @@ export const CoreLayout = ({ children }) => (
                 </a>
               </li>
             </ul>
-            <p className="copyright text-muted">Copyright &copy; Yorick Laupa 2016</p>
+            <p className="copyright text-muted">Copyright &copy; Yorick Laupa 2017</p>
           </div>
         </div>
       </div>

@@ -1,3 +1,5 @@
+import 'whatwg-fetch'
+
 export const POSTS_LOADED = 'POSTS_LOADED'
 export const POSTS_LOADING_FAILED = 'POSTS_LOADING_FAILED'
 
